@@ -1,0 +1,484 @@
+name: Build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+      - name: Write project
+        run: |
+          mkdir -p proj/app/src/main/java/com/nova/tap proj/app/src/main/res/xml proj/app/src/main/res/values
+          cd proj
+          echo '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' | base64 -d > app/nova.jks || true
+          if ! keytool -list -keystore app/nova.jks -storepass novatap > /dev/null 2>&1; then
+            keytool -genkeypair -keystore app/nova.jks -storepass novatap -keypass novatap -alias nova -keyalg RSA -keysize 2048 -validity 36500 -dname "CN=Nova Tap"
+          fi
+          cat > settings.gradle <<'EOF'
+          pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+          dependencyResolutionManagement { repositories { google(); mavenCentral() } }
+          include ':app'
+          EOF
+          cat > build.gradle <<'EOF'
+          plugins { id 'com.android.application' version '8.5.2' apply false }
+          EOF
+          cat > app/build.gradle <<'EOF'
+          plugins { id 'com.android.application' }
+          android {
+            namespace 'com.nova.tap'
+            compileSdk 34
+            defaultConfig {
+              applicationId 'com.nova.tap'
+              minSdk 24
+              targetSdk 33
+              versionCode 1
+              versionName '1.0'
+            }
+            signingConfigs {
+              debug {
+                storeFile file('nova.jks')
+                storePassword 'novatap'
+                keyAlias 'nova'
+                keyPassword 'novatap'
+              }
+            }
+            buildTypes {
+              debug {
+                debuggable false
+                minifyEnabled false
+              }
+            }
+          }
+          EOF
+          cat > app/src/main/res/values/strings.xml <<'EOF'
+          <resources>
+            <string name="acc_desc">Nova Tap auto tap service</string>
+          </resources>
+          EOF
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:label="Nova Tap" android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+              <activity android:name=".MainActivity" android:exported="true">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN"/>
+                  <category android:name="android.intent.category.LAUNCHER"/>
+                </intent-filter>
+              </activity>
+              <service android:name=".TapService" android:exported="false"
+                  android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+                <intent-filter>
+                  <action android:name="android.accessibilityservice.AccessibilityService"/>
+                </intent-filter>
+                <meta-data android:name="android.accessibilityservice" android:resource="@xml/acc"/>
+              </service>
+            </application>
+          </manifest>
+          EOF
+          cat > app/src/main/res/xml/acc.xml <<'EOF'
+          <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+              android:description="@string/acc_desc"
+              android:canPerformGestures="true"
+              android:canRequestFilterKeyEvents="true"
+              android:accessibilityFlags="flagRequestFilterKeyEvents"
+              android:accessibilityEventTypes="typeWindowStateChanged"
+              android:accessibilityFeedbackType="feedbackGeneric"
+              android:notificationTimeout="100"/>
+          EOF
+          cat > app/src/main/java/com/nova/tap/MainActivity.java <<'EOF'
+          package com.nova.tap;
+          import android.app.Activity;
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.graphics.Color;
+          import android.graphics.Typeface;
+          import android.graphics.drawable.GradientDrawable;
+          import android.os.Bundle;
+          import android.os.Handler;
+          import android.os.Looper;
+          import android.provider.Settings;
+          import android.text.InputType;
+          import android.view.Gravity;
+          import android.view.MotionEvent;
+          import android.view.View;
+          import android.widget.*;
+          public class MainActivity extends Activity {
+            SharedPreferences sp;
+            EditText e1, e2, e3, e4, e5, e6;
+            TextView pad;
+            Handler ui = new Handler(Looper.getMainLooper());
+            long padTotal = 0;
+            long padLast = 0;
+            long padLastTime = 0;
+            int padRate = 0;
+            int dp(int v) { return (int) (v * getResources().getDisplayMetrics().density); }
+            GradientDrawable box(int color, int radius) {
+              GradientDrawable g = new GradientDrawable();
+              g.setColor(color);
+              g.setCornerRadius(dp(radius));
+              return g;
+            }
+            TextView tv(String s, int size, int color, boolean bold) {
+              TextView t = new TextView(this);
+              t.setText(s);
+              t.setTextSize(size);
+              t.setTextColor(color);
+              if (bold) t.setTypeface(null, Typeface.BOLD);
+              t.setPadding(0, dp(8), 0, dp(4));
+              return t;
+            }
+            Button mk(String text, int color, View.OnClickListener c) {
+              Button b = new Button(this);
+              b.setText(text);
+              b.setTextColor(Color.WHITE);
+              b.setAllCaps(false);
+              b.setBackground(box(color, 14));
+              LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, dp(52));
+              lp.topMargin = dp(10);
+              b.setLayoutParams(lp);
+              b.setOnClickListener(c);
+              return b;
+            }
+            Button preset(String name, final int i, final int c, final int bu, final int pr, final int gp) {
+              Button b = new Button(this);
+              b.setText(name);
+              b.setTextColor(Color.WHITE);
+              b.setTextSize(12);
+              b.setAllCaps(false);
+              b.setBackground(box(0xFF2A2A4A, 12));
+              LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, dp(46), 1);
+              lp.rightMargin = dp(4);
+              lp.leftMargin = dp(4);
+              b.setLayoutParams(lp);
+              b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                  e1.setText("" + i);
+                  e2.setText("" + c);
+                  e4.setText("" + bu);
+                  e5.setText("" + pr);
+                  e6.setText("" + gp);
+                  save();
+                }
+              });
+              return b;
+            }
+            EditText field(int val) {
+              EditText e = new EditText(this);
+              e.setInputType(InputType.TYPE_CLASS_NUMBER);
+              e.setTextColor(Color.WHITE);
+              e.setBackground(box(0xFF1E1E38, 10));
+              e.setPadding(dp(14), dp(10), dp(14), dp(10));
+              e.setText("" + val);
+              return e;
+            }
+            int num(EditText e, int def) {
+              try { return Integer.parseInt(e.getText().toString()); } catch (Exception x) { return def; }
+            }
+            void save() {
+              int i = num(e1, 5), c = num(e2, 1), lim = num(e3, 0), bu = num(e4, 5), pr = num(e5, 5), gp = num(e6, 3);
+              if (i < 1) i = 1;
+              if (c < 1) c = 1;
+              if (c > 10) c = 10;
+              if (bu < 1) bu = 1;
+              if (c * bu > 10) bu = Math.max(1, 10 / c);
+              if (pr < 1) pr = 1;
+              if (pr > 200) pr = 200;
+              if (gp < 0) gp = 0;
+              if (gp > 200) gp = 200;
+              if (lim < 0) lim = 0;
+              sp.edit().putInt("interval", i).putInt("count", c).putInt("limit", lim)
+                .putInt("burst", bu).putInt("press", pr).putInt("gap", gp).apply();
+              e1.setText("" + i);
+              e2.setText("" + c);
+              e3.setText("" + lim);
+              e4.setText("" + bu);
+              e5.setText("" + pr);
+              e6.setText("" + gp);
+              Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+            }
+            Runnable padUpdate = new Runnable() {
+              public void run() {
+                long now = System.currentTimeMillis();
+                long dt = now - padLastTime;
+                if (dt >= 1000) {
+                  padRate = (int) ((padTotal - padLast) * 1000 / dt);
+                  padLast = padTotal;
+                  padLastTime = now;
+                }
+                pad.setText("TEST PAD\nReal taps received: " + padTotal + "\nPer second: " + padRate);
+                ui.postDelayed(this, 250);
+              }
+            };
+            protected void onResume() {
+              super.onResume();
+              padLastTime = System.currentTimeMillis();
+              padLast = padTotal;
+              ui.post(padUpdate);
+            }
+            protected void onPause() {
+              super.onPause();
+              ui.removeCallbacks(padUpdate);
+            }
+            protected void onCreate(Bundle b) {
+              super.onCreate(b);
+              sp = getSharedPreferences("s", 0);
+              ScrollView sv = new ScrollView(this);
+              sv.setBackgroundColor(0xFF0B0B12);
+              LinearLayout l = new LinearLayout(this);
+              l.setOrientation(LinearLayout.VERTICAL);
+              l.setPadding(dp(20), dp(50), dp(20), dp(30));
+              sv.addView(l);
+              l.addView(tv("NOVA TAP", 32, 0xFF00E5FF, true));
+              l.addView(tv("Smart Auto Clicker v1", 14, 0xFF9E9EB8, false));
+              l.addView(mk("1) Open Accessibility Settings", 0xFFFF4081, new View.OnClickListener() {
+                public void onClick(View v) { startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)); }
+              }));
+              l.addView(mk("2) Battery: Set Unrestricted", 0xFF2E7D32, new View.OnClickListener() {
+                public void onClick(View v) {
+                  try { startActivity(new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)); }
+                  catch (Exception x) { startActivity(new Intent(Settings.ACTION_SETTINGS)); }
+                }
+              }));
+              l.addView(tv("Speed Presets", 16, Color.WHITE, true));
+              LinearLayout row = new LinearLayout(this);
+              row.setOrientation(LinearLayout.HORIZONTAL);
+              row.addView(preset("Normal", 30, 1, 1, 10, 0));
+              row.addView(preset("Fast", 10, 1, 3, 8, 3));
+              row.addView(preset("Turbo", 5, 2, 5, 5, 3));
+              row.addView(preset("Insane", 1, 1, 10, 3, 2));
+              l.addView(row);
+              l.addView(tv("Delay between bursts (ms), min 1", 13, 0xFF9E9EB8, false));
+              e1 = field(sp.getInt("interval", 5));
+              l.addView(e1);
+              l.addView(tv("Simultaneous touches (1-10)", 13, 0xFF9E9EB8, false));
+              e2 = field(sp.getInt("count", 1));
+              l.addView(e2);
+              l.addView(tv("Burst: taps per gesture (Touches x Burst max 10)", 13, 0xFF9E9EB8, false));
+              e4 = field(sp.getInt("burst", 5));
+              l.addView(e4);
+              l.addView(tv("Press time of each tap (ms). Game na pakde to badhao (8-20)", 13, 0xFF9E9EB8, false));
+              e5 = field(sp.getInt("press", 5));
+              l.addView(e5);
+              l.addView(tv("Gap between taps inside burst (ms)", 13, 0xFF9E9EB8, false));
+              e6 = field(sp.getInt("gap", 3));
+              l.addView(e6);
+              l.addView(tv("Auto-stop after taps (0 = never)", 13, 0xFF9E9EB8, false));
+              e3 = field(sp.getInt("limit", 0));
+              l.addView(e3);
+              l.addView(mk("SAVE SETTINGS", 0xFFFFA000, new View.OnClickListener() {
+                public void onClick(View v) { save(); }
+              }));
+              l.addView(tv("Test Pad (yahan speed check karo)", 16, Color.WHITE, true));
+              pad = new TextView(this);
+              pad.setTextColor(Color.WHITE);
+              pad.setTextSize(16);
+              pad.setGravity(Gravity.CENTER);
+              pad.setBackground(box(0xFF16162A, 16));
+              pad.setLayoutParams(new LinearLayout.LayoutParams(-1, dp(180)));
+              pad.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent e) {
+                  int a = e.getActionMasked();
+                  if (a == MotionEvent.ACTION_DOWN || a == MotionEvent.ACTION_POINTER_DOWN) padTotal++;
+                  return true;
+                }
+              });
+              l.addView(pad);
+              l.addView(mk("Reset counter", 0xFF2A2A4A, new View.OnClickListener() {
+                public void onClick(View v) { padTotal = 0; padLast = 0; padRate = 0; }
+              }));
+              l.addView(tv("How to use", 16, Color.WHITE, true));
+              l.addView(tv("1) Accessibility mein Nova Tap ON karo.\n2) Battery ko Unrestricted karo.\n3) Pink dot ko Test Pad ke upar drag karo.\n4) START dabao, Test Pad pe Per second dekho.\n5) Rokne ke liye STOP ya VOLUME DOWN.\n\nSpeed kam lage: Press time badhao (8-15) ya Insane/Turbo preset try karo.\nGame hang ho: Fast ya Normal preset lo.\nGame mein jaane se pehle dot ko game ke tap area pe rakho.", 13, 0xFF9E9EB8, false));
+              setContentView(sv);
+            }
+          }
+          EOF
+          cat > app/src/main/java/com/nova/tap/TapService.java <<'EOF'
+          package com.nova.tap;
+          import android.accessibilityservice.AccessibilityService;
+          import android.accessibilityservice.GestureDescription;
+          import android.content.SharedPreferences;
+          import android.graphics.Path;
+          import android.graphics.PixelFormat;
+          import android.graphics.drawable.GradientDrawable;
+          import android.os.Handler;
+          import android.os.HandlerThread;
+          import android.os.Looper;
+          import android.view.*;
+          import android.view.accessibility.AccessibilityEvent;
+          import android.widget.Button;
+          public class TapService extends AccessibilityService {
+            WindowManager wm;
+            View target;
+            Button btn;
+            WindowManager.LayoutParams tp, bp;
+            HandlerThread ht;
+            Handler h, ui;
+            volatile boolean running = false;
+            volatile int interval = 5;
+            volatile int per = 1;
+            volatile long taps = 0;
+            volatile long limit = 0;
+            GestureDescription gesture;
+            Runnable loop = new Runnable() { public void run() { tap(); } };
+            Runnable stopper = new Runnable() { public void run() { if (running) toggle(); } };
+            Runnable counter = new Runnable() {
+              public void run() {
+                if (running) {
+                  btn.setText("STOP  " + taps);
+                  ui.postDelayed(this, 150);
+                }
+              }
+            };
+            GestureResultCallback cb = new GestureResultCallback() {
+              public void onCompleted(GestureDescription d) {
+                if (!running) return;
+                taps += per;
+                if (limit > 0 && taps >= limit) { ui.post(stopper); return; }
+                h.postDelayed(loop, interval);
+              }
+              public void onCancelled(GestureDescription d) {
+                if (running) h.postDelayed(loop, interval + 5);
+              }
+            };
+            public void onAccessibilityEvent(AccessibilityEvent e) {}
+            public void onInterrupt() {}
+            protected boolean onKeyEvent(KeyEvent e) {
+              if (running && e.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
+                if (e.getAction() == KeyEvent.ACTION_DOWN) toggle();
+                return true;
+              }
+              return false;
+            }
+            GradientDrawable pill(int color, int radius) {
+              GradientDrawable g = new GradientDrawable();
+              g.setColor(color);
+              g.setCornerRadius(radius);
+              return g;
+            }
+            WindowManager.LayoutParams lp(int w, int hh, int x, int y) {
+              WindowManager.LayoutParams p = new WindowManager.LayoutParams(w, hh,
+                WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                PixelFormat.TRANSLUCENT);
+              p.gravity = Gravity.TOP | Gravity.LEFT;
+              p.x = x; p.y = y;
+              return p;
+            }
+            void drag(final View v, final WindowManager.LayoutParams p, final Runnable click, final boolean instant) {
+              v.setOnTouchListener(new View.OnTouchListener() {
+                float dx, dy; int sx, sy; boolean moved, handled;
+                public boolean onTouch(View view, MotionEvent e) {
+                  switch (e.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                      dx = e.getRawX(); dy = e.getRawY(); sx = p.x; sy = p.y; moved = false; handled = false;
+                      if (instant && running && click != null) { handled = true; click.run(); }
+                      return true;
+                    case MotionEvent.ACTION_MOVE:
+                      if (handled) return true;
+                      float mx = e.getRawX() - dx, my = e.getRawY() - dy;
+                      if (Math.abs(mx) > 10 || Math.abs(my) > 10) moved = true;
+                      if (moved) { p.x = sx + (int) mx; p.y = sy + (int) my; wm.updateViewLayout(v, p); }
+                      return true;
+                    case MotionEvent.ACTION_UP:
+                      if (!moved && !handled && click != null) click.run();
+                      return true;
+                  }
+                  return false;
+                }
+              });
+            }
+            protected void onServiceConnected() {
+              if (ht == null) {
+                ht = new HandlerThread("novatap");
+                ht.start();
+                h = new Handler(ht.getLooper());
+                ui = new Handler(Looper.getMainLooper());
+              }
+              wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+              target = new View(this);
+              GradientDrawable g = new GradientDrawable();
+              g.setShape(GradientDrawable.OVAL);
+              g.setColor(0xAAFF4081);
+              g.setStroke(5, 0xFF00E5FF);
+              target.setBackground(g);
+              tp = lp(100, 100, 400, 800);
+              drag(target, tp, null, false);
+              wm.addView(target, tp);
+              btn = new Button(this);
+              btn.setText("START");
+              btn.setTextColor(0xFFFFFFFF);
+              btn.setTextSize(15);
+              btn.setBackground(pill(0xDD2E7D32, 80));
+              bp = lp(260, 120, 50, 300);
+              drag(btn, bp, new Runnable() { public void run() { toggle(); } }, true);
+              wm.addView(btn, bp);
+            }
+            void toggle() {
+              if (!running) {
+                SharedPreferences sp = getSharedPreferences("s", 0);
+                interval = sp.getInt("interval", 5);
+                int count = sp.getInt("count", 1);
+                int burst = sp.getInt("burst", 5);
+                long press = sp.getInt("press", 5);
+                long gap = sp.getInt("gap", 3);
+                if (count < 1) count = 1;
+                if (count > 10) count = 10;
+                if (burst < 1) burst = 1;
+                if (count * burst > 10) burst = Math.max(1, 10 / count);
+                if (press < 1) press = 1;
+                per = count * burst;
+                limit = sp.getInt("limit", 0);
+                taps = 0;
+                int cx = tp.x + 50, cy = tp.y + 50;
+                GestureDescription.Builder b = new GestureDescription.Builder();
+                for (int k = 0; k < burst; k++) {
+                  for (int i = 0; i < count; i++) {
+                    Path p = new Path();
+                    p.moveTo(cx + i * 6, cy);
+                    b.addStroke(new GestureDescription.StrokeDescription(p, k * (press + gap), press));
+                  }
+                }
+                gesture = b.build();
+                btn.setText("STOP  0");
+                btn.setBackground(pill(0xDDC62828, 80));
+                tp.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                wm.updateViewLayout(target, tp);
+                running = true;
+                ui.post(counter);
+                h.post(loop);
+              } else {
+                running = false;
+                h.removeCallbacksAndMessages(null);
+                ui.removeCallbacks(counter);
+                btn.setText("START");
+                btn.setBackground(pill(0xDD2E7D32, 80));
+                tp.flags &= ~WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                wm.updateViewLayout(target, tp);
+              }
+            }
+            void tap() {
+              if (!running || gesture == null) return;
+              boolean ok = dispatchGesture(gesture, cb, h);
+              if (!ok && running) h.postDelayed(loop, 50);
+            }
+            public void onDestroy() {
+              super.onDestroy();
+              running = false;
+              if (h != null) h.removeCallbacksAndMessages(null);
+              if (ui != null) ui.removeCallbacksAndMessages(null);
+              if (ht != null) ht.quitSafely();
+              try { wm.removeView(target); wm.removeView(btn); } catch (Exception e) {}
+            }
+          }
+          EOF
+      - name: Build
+        working-directory: proj
+        run: gradle assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NovaTap
+          path: proj/app/build/outputs/apk/debug/app-debug.apk
